@@ -1,0 +1,33 @@
+{
+  "name": "minecraft-bot-pipeline",
+  "version": "1.0.0",
+  "description": "Multi-bot Minecraft content pipeline with automated capture and streaming capabilities",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "minecraft",
+    "mineflayer",
+    "streaming",
+    "automation",
+    "bot"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "mineflayer": "^4.17.0",
+    "prismarine-viewer": "^1.23.0",
+    "puppeteer": "^21.6.0",
+    "ffmpeg-static": "^5.2.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "luxon": "^3.4.4",
+    "tmi.js": "^1.8.5",
+    "vec3": "^0.1.8"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,24 @@
+[Unit]
+Description=Multi-Bot Minecraft Content Pipeline
+After=network.target
+
+[Service]
+Type=simple
+User=minecraft
+WorkingDirectory=/home/minecraft/pro
+ExecStart=/usr/bin/node /home/minecraft/pro/index.js
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Environment variables (optional)
+Environment="NODE_ENV=production"
+Environment="TZ=America/New_York"
+
+# Resource limits
+LimitNOFILE=65536
+MemoryLimit=2G
+
+[Install]
+WantedBy=multi-user.target
