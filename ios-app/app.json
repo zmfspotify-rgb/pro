@@ -27,8 +27,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "your-project-id"
+        "projectId": "REPLACE_WITH_YOUR_EAS_PROJECT_ID"
       }
-    }
+    },
+    "owner": "your-expo-username"
   }
 }

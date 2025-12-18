@@ -41,11 +41,35 @@ class TwitchStreamer {
     const twitchConfig = this.config.twitch;
     const streamUrl = `rtmp://live.twitch.tv/app/${twitchConfig.streamKey}`;
 
+    // Platform-specific screen capture configuration
+    const platform = process.platform;
+    let inputConfig = {};
+    
+    if (platform === 'win32') {
+      // Windows: Use gdigrab
+      inputConfig = {
+        input: 'desktop',
+        inputFormat: 'gdigrab'
+      };
+    } else if (platform === 'darwin') {
+      // macOS: Use avfoundation
+      inputConfig = {
+        input: '1', // Screen capture device
+        inputFormat: 'avfoundation'
+      };
+    } else {
+      // Linux: Use x11grab
+      inputConfig = {
+        input: ':0.0',
+        inputFormat: 'x11grab'
+      };
+    }
+
     // This is a simplified version - in a real implementation, you'd capture
     // the Minecraft game screen and stream it
     const command = ffmpeg()
-      .input('desktop') // Would need proper screen capture
-      .inputFormat('gdigrab') // Windows screen capture (platform-specific)
+      .input(inputConfig.input)
+      .inputFormat(inputConfig.inputFormat)
       .size('1920x1080')
       .fps(30)
       .videoCodec('libx264')
@@ -58,7 +82,7 @@ class TwitchStreamer {
     // Store reference but don't actually start (would need proper setup)
     this.streamProcess = command;
     
-    console.log(`Stream configured for ${streamUrl}`);
+    console.log(`Stream configured for ${streamUrl} (${platform})`);
   }
 
   setupChatListener(chatResponder) {

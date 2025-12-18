@@ -15,6 +15,9 @@
     "enabled": true,
     "model": "default"
   },
+  "chatEngagement": {
+    "probability": 0.2
+  },
   "botConfigs": {
     "bot1": {
       "minecraft": {

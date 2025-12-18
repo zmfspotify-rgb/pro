@@ -163,7 +163,9 @@ class AITaskExecutor {
 
   isCropMature(block) {
     // Check if crop is mature (simplified)
-    return block.metadata === 7; // Most crops are mature at metadata 7
+    // Most crops are mature at metadata 7 (wheat, carrots, potatoes)
+    const MATURE_METADATA = 7;
+    return block.metadata === MATURE_METADATA;
   }
 
   async heal() {

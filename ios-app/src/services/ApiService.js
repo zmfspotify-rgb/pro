@@ -3,7 +3,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class ApiService {
   constructor() {
-    this.baseURL = 'http://localhost:3000';
+    // Default to localhost, but will be overridden by saved URL
+    // Users should configure this in the Settings screen
+    this.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
     this.loadBaseURL();
   }
 

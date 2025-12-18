@@ -21,6 +21,13 @@ EAS handles the build process in the cloud, so you don't need a Mac.
    ```
 
 2. **Configure the project**
+   
+   First, update `ios-app/app.json`:
+   - Replace `REPLACE_WITH_YOUR_EAS_PROJECT_ID` with your actual project ID (will be generated)
+   - Replace `your-expo-username` with your Expo username
+   - Update `bundleIdentifier` to be unique (e.g., `com.yourcompany.minecraftbotlauncher`)
+   
+   Then run:
    ```bash
    eas build:configure
    ```

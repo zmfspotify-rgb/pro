@@ -65,8 +65,9 @@ class TwitchChatResponder {
       return `Yes ${username}? How can I help you?`;
     }
 
-    // Random engagement responses (20% chance)
-    if (Math.random() < 0.2) {
+    // Random engagement responses (configurable probability)
+    const ENGAGEMENT_PROBABILITY = this.config.chatEngagement?.probability || 0.2;
+    if (Math.random() < ENGAGEMENT_PROBABILITY) {
       const engagementResponses = [
         `Interesting point, ${username}!`,
         `That's a good observation!`,

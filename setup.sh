@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e  # Exit on any command failure
 
 # Setup script for Minecraft Bot Launcher
 

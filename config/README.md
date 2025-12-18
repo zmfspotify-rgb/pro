@@ -9,7 +9,12 @@ Main configuration file containing:
 - Minecraft server settings
 - Twitch configuration
 - Voice/TTS settings
+- Chat engagement settings (probability of random responses)
 - Individual bot configurations
+
+### Chat Engagement
+
+The `chatEngagement.probability` setting controls how often bots respond to chat messages that don't match specific patterns. Value should be between 0.0 (never) and 1.0 (always). Default is 0.2 (20% chance).
 
 ## schedules.json
 

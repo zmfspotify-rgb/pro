@@ -95,12 +95,22 @@ class ScheduleManager {
           // Start streaming
           await this.botManager.startStreaming(botId);
           
-          // Schedule stream stop
+          // Schedule stream stop using another cron job (more reliable than setTimeout)
           if (duration) {
-            setTimeout(async () => {
+            const stopTime = new Date(Date.now() + duration * 60 * 1000);
+            const stopCronExpression = `${stopTime.getMinutes()} ${stopTime.getHours()} ${stopTime.getDate()} ${stopTime.getMonth() + 1} *`;
+            
+            const stopJob = cron.schedule(stopCronExpression, async () => {
               console.log(`[Schedule] Stopping stream for bot ${botId} after ${duration} minutes`);
-              await this.botManager.stopStreaming(botId);
-            }, duration * 60 * 1000);
+              try {
+                await this.botManager.stopStreaming(botId);
+              } catch (error) {
+                console.error(`Error stopping scheduled stream for bot ${botId}:`, error);
+              }
+              stopJob.stop();
+            }, { scheduled: true });
+            
+            jobs.push(stopJob);
           }
         } catch (error) {
           console.error(`Error starting scheduled stream for bot ${botId}:`, error);
