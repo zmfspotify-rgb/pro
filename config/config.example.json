@@ -1,0 +1,39 @@
+{
+  "bots": ["bot1", "bot2"],
+  "minecraft": {
+    "host": "localhost",
+    "port": 25565,
+    "version": "1.19",
+    "auth": "offline"
+  },
+  "twitch": {
+    "channel": "your_channel_name",
+    "streamKey": "your_stream_key_here",
+    "oauth": "oauth:your_oauth_token_here"
+  },
+  "voice": {
+    "enabled": true,
+    "model": "default"
+  },
+  "chatEngagement": {
+    "probability": 0.2
+  },
+  "botConfigs": {
+    "bot1": {
+      "minecraft": {
+        "username": "bot1"
+      },
+      "voice": {
+        "model": "male1"
+      }
+    },
+    "bot2": {
+      "minecraft": {
+        "username": "bot2"
+      },
+      "voice": {
+        "model": "female1"
+      }
+    }
+  }
+}
