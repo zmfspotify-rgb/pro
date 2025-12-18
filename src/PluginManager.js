@@ -73,8 +73,10 @@ class PluginManager {
     bot.on('entityDead', (entity) => {
       if (entity.type === 'player' && bot.entity) {
         const distance = bot.entity.position.distanceTo(entity.position);
-        if (distance < 5) {
-          // Likely killed by this bot
+        // Conservative kill credit - very close proximity
+        if (distance < 3) {
+          // Note: This is a simple proximity check. For accurate kill tracking,
+          // server-side plugins or damage tracking would be needed.
           lifeStealPlugin.onKill(entity.username || 'someone');
         }
       }
@@ -82,6 +84,9 @@ class PluginManager {
 
     // Listen for lifesteal commands
     bot.on('chat', (username, message) => {
+      // Only respond to commands from other players
+      if (username === bot.username) return;
+      
       if (message === '!hearts' || message === '!hp') {
         bot.chat(`I currently have ${lifeStealPlugin.hearts} hearts!`);
       }

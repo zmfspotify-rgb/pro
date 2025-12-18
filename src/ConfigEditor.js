@@ -547,7 +547,7 @@ Mods System: ${this.config.mods.enabled ? 'Enabled' : 'Disabled'}
 
   exit() {
     this.screen.destroy();
-    process.exit(0);
+    // Let process exit naturally after cleanup
   }
 }
 

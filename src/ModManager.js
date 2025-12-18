@@ -161,7 +161,7 @@ class ModManager {
       }
     };
 
-    // Setup chat commands for voice chat
+    // Setup chat commands for voice chat and proximity voice
     bot.on('chat', (username, message) => {
       if (username === bot.username) return;
 
@@ -172,11 +172,13 @@ class ModManager {
       if (lowerMessage === '!voice' || lowerMessage === '!vc') {
         const info = voiceChatMod.getInfo();
         bot.chat(`Voice Chat - Distance: ${info.voiceDistance}m | Muted: ${info.isMuted ? 'Yes' : 'No'}`);
+        return;
       }
 
       // !vmute - Toggle mute
       if (lowerMessage === '!vmute') {
         voiceChatMod.toggleMute();
+        return;
       }
 
       // !vcreate <name> [password] - Create voice channel
@@ -188,6 +190,7 @@ class ModManager {
         if (channelName) {
           voiceChatMod.createPrivateChannel(channelName, password);
         }
+        return;
       }
 
       // !vjoin <name> [password] - Join voice channel
@@ -199,11 +202,13 @@ class ModManager {
         if (channelName) {
           voiceChatMod.joinChannel(channelName, password);
         }
+        return;
       }
 
       // !vleave - Leave voice channel
       if (lowerMessage === '!vleave') {
         voiceChatMod.leaveChannel();
+        return;
       }
 
       // !vlist - List voice channels
@@ -214,12 +219,11 @@ class ModManager {
           const channels = Array.from(voiceChatMod.privateChannels.keys()).join(', ');
           bot.chat(`Voice channels: ${channels}`);
         }
+        return;
       }
-    });
 
-    // Proximity voice chat - speak when near other players
-    bot.on('chat', (username, message) => {
-      if (username === bot.username || voiceChatMod.isMuted) return;
+      // Proximity voice chat - respond when near other players
+      if (voiceChatMod.isMuted) return;
 
       // Check if player is nearby for proximity voice
       const player = bot.players[username];

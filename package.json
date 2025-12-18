@@ -28,8 +28,7 @@
     "node-rtsp-stream": "^0.0.9",
     "canvas": "^2.11.2",
     "say": "^0.16.0",
-    "blessed": "^0.1.81",
-    "blessed-contrib": "^4.11.0"
+    "blessed": "^0.1.81"
   },
   "devDependencies": {
     "pkg": "^5.8.1"
