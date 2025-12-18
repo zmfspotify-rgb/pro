@@ -1,0 +1,56 @@
+{
+  "name": "minecraft-bot-manager-pro",
+  "version": "1.0.0",
+  "description": "A multi-bot Minecraft content pipeline project powered by Node.js",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --x64",
+    "build:dir": "electron-builder --win --x64 --dir",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "minecraft",
+    "bot",
+    "automation",
+    "mineflayer"
+  ],
+  "author": "",
+  "license": "ISC",
+  "build": {
+    "appId": "com.minecraftbotmanager.pro",
+    "productName": "Minecraft Bot Manager Pro",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "files": [
+      "main.js",
+      "src/**/*",
+      "data/**/*",
+      "assets/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ]
+  },
+  "dependencies": {
+    "mineflayer": "^4.25.0"
+  },
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12"
+  }
+}
