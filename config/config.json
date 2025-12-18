@@ -1,0 +1,13 @@
+{
+  "botName": "MinecraftBot",
+  "server": "localhost",
+  "port": 25565,
+  "version": "1.20.1",
+  "autoReconnect": true,
+  "reconnectDelay": 5000,
+  "features": {
+    "autoMine": false,
+    "autoFarm": false,
+    "pathfinding": true
+  }
+}
