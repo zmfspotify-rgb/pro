@@ -1,0 +1,38 @@
+
+// !$*UTF8*$!
+{
+    archiveVersion = 1;
+    classes = {
+    };
+    objectVersion = 56;
+    objects = {
+        /* Project object */
+        productName = MinecraftBotPipeline;
+        buildConfigurationList = {
+            buildConfigurations = (
+                {
+                    name = Debug;
+                    buildSettings = {
+                        PRODUCT_NAME = "MinecraftBotPipeline";
+                        PRODUCT_BUNDLE_IDENTIFIER = "com.mcbotpipeline.app";
+                        INFOPLIST_FILE = "MinecraftBotPipeline/Info.plist";
+                        SWIFT_VERSION = 5.0;
+                        TARGETED_DEVICE_FAMILY = "1,2";
+                    };
+                },
+                {
+                    name = Release;
+                    buildSettings = {
+                        PRODUCT_NAME = "MinecraftBotPipeline";
+                        PRODUCT_BUNDLE_IDENTIFIER = "com.mcbotpipeline.app";
+                        INFOPLIST_FILE = "MinecraftBotPipeline/Info.plist";
+                        SWIFT_VERSION = 5.0;
+                        TARGETED_DEVICE_FAMILY = "1,2";
+                        CODE_SIGN_IDENTITY = "iPhone Distribution";
+                    };
+                }
+            );
+        };
+    };
+    rootObject = /* Project object */;
+}

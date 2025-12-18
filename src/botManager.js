@@ -4,10 +4,13 @@
  */
 
 import mineflayer from 'mineflayer';
-import { pathfinder, Movements, goals } from 'mineflayer-pathfinder';
+import pathfinderPlugin from 'mineflayer-pathfinder';
+import mcData from 'minecraft-data';
 import { BotMemory, BotPersonality, personalityTraits } from './aiPersonality.js';
 import { getVoicePreset, getRandomVoicePreset } from './voicePresets.js';
 import { StreamingSchedule } from './streamingSchedule.js';
+
+const { pathfinder, Movements, goals } = pathfinderPlugin;
 
 export class BotManager {
   constructor() {
@@ -92,8 +95,8 @@ export class BotManager {
       bot.memory.remember({ type: 'spawn', description: 'Spawned in world' });
       
       // Set up pathfinder movements
-      const mcData = require('minecraft-data')(bot.version);
-      const defaultMove = new Movements(bot, mcData);
+      const mcDataInstance = mcData(bot.version);
+      const defaultMove = new Movements(bot, mcDataInstance);
       bot.pathfinder.setMovements(defaultMove);
     });
 

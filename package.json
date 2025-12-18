@@ -8,7 +8,9 @@
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
     "build:ios": "node scripts/build-ios.js",
-    "bot": "node src/bot.js"
+    "bot": "node src/bot.js",
+    "test": "node test.js",
+    "demo": "node demo.js"
   },
   "keywords": [
     "minecraft",
@@ -24,6 +26,7 @@
     "mineflayer": "^4.18.0",
     "mineflayer-pathfinder": "^2.4.4",
     "minecraft-protocol": "^1.45.0",
+    "minecraft-data": "^3.60.0",
     "prismarine-chat": "^1.10.0"
   }
 }
