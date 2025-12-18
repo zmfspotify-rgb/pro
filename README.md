@@ -14,20 +14,30 @@ A multi-bot Minecraft content pipeline project powered by Node.js featuring AI p
 
 ## 🚀 Quick Start
 
-### Using the .exe Launcher (Windows)
+### Building the .exe Launcher (Required)
 
-**Option 1: Download from repository**
-1. Download `launcher.exe` from the `dist/` folder in this repository
-2. Download and edit `config/config.json` to configure your bots
-3. Double-click `launcher.exe` to start the bot pipeline
+**The launcher.exe is not included in the repository due to its size (426MB). You must build it:**
 
-**Option 2: Download from releases**
-1. Download the latest `launcher.exe` from the [Releases](../../releases) page
-2. Configure `config/config.json` (see configuration section below)
-3. Double-click `launcher.exe` to start the bot pipeline
+```bash
+# Install dependencies
+npm install
 
-### Running from Source
+# Build the .exe launcher for Windows
+npm run build
+```
 
+The `launcher.exe` will be created in the `dist/` directory.
+
+**Alternative:** Download pre-built launcher from the [Releases](../../releases) page when available.
+
+### Running the Application
+
+**Option 1: Using the .exe launcher (Windows)**
+1. Build the launcher with `npm run build` (see above)
+2. Configure `config/config.json` (see configuration below)
+3. Double-click `dist/launcher.exe`
+
+**Option 2: Run from source**
 ```bash
 # Install dependencies
 npm install

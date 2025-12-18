@@ -6,8 +6,9 @@ yarn.lock
 # Build output
 dist/
 *.exe
-# Exception: Include the launcher executable
-!dist/launcher.exe
+# Note: launcher.exe is too large for Git (>100MB)
+# Users should build it locally using `npm run build`
+# Or download from GitHub Releases
 
 # Logs
 logs/
