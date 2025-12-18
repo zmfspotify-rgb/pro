@@ -1,0 +1,49 @@
+{
+  "name": "avatarOS",
+  "version": "2.0.0",
+  "description": "AvatarOS - AI-powered Minecraft bot system with dynamic plugin learning and memory",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "config": "node src/ConfigEditor.js",
+    "build": "pkg . --targets node18-win-x64 --output dist/AvatarOS.exe",
+    "build:all": "pkg . --targets node18-win-x64,node18-linux-x64,node18-macos-x64 --out-path dist"
+  },
+  "bin": {
+    "avatarOS": "src/index.js"
+  },
+  "keywords": [
+    "minecraft",
+    "bot",
+    "pipeline",
+    "automation",
+    "AI",
+    "memory",
+    "learning"
+  ],
+  "author": "zmfspotify-rgb",
+  "license": "MIT",
+  "dependencies": {
+    "mineflayer": "^4.20.1",
+    "mineflayer-pathfinder": "^2.4.4",
+    "prismarine-viewer": "^1.24.0",
+    "tmi.js": "^1.8.5",
+    "node-rtsp-stream": "^0.0.9",
+    "canvas": "^2.11.2",
+    "say": "^0.16.0",
+    "blessed": "^0.1.81"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
+  },
+  "pkg": {
+    "assets": [
+      "config/**/*",
+      "voices/**/*",
+      "plugins/**/*",
+      "mods/**/*",
+      "memory/**/*"
+    ],
+    "outputPath": "dist"
+  }
+}
