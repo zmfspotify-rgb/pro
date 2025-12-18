@@ -295,7 +295,9 @@ class AIMemorySystem {
 
     // Check if we've been in similar situations
     relevantMemories.behaviors.forEach(behavior => {
-      const successRate = behavior.successes / (behavior.successes + behavior.failures || 1);
+      const totalAttempts = (behavior.successes || 0) + (behavior.failures || 0);
+      const successRate = totalAttempts > 0 ? (behavior.successes || 0) / totalAttempts : 0;
+      
       if (successRate > 0.6) {
         suggestions.push({
           action: behavior.name,

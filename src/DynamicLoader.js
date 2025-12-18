@@ -84,10 +84,16 @@ class DynamicLoader {
         const code = fs.readFileSync(pluginPath, 'utf8');
         
         // Extract commands (look for command patterns)
-        const commandMatches = code.match(/(?:command|cmd|on\(['"](\w+)['"]\))/gi) || [];
-        capabilities.commands = [...new Set(commandMatches.map(m => 
-          m.replace(/.*['"](\w+)['"].*/, '$1')
-        ))];
+        const commandMatches = code.match(/command['"]?\s*:\s*['"](\w+)['"]/gi) || [];
+        const cmdMatches = code.match(/cmd\s*[=:]\s*['"](\w+)['"]/gi) || [];
+        const onMatches = code.match(/on\s*\(\s*['"](\w+)['"]\s*\)/gi) || [];
+        
+        const allCommands = [...commandMatches, ...cmdMatches, ...onMatches].map(m => {
+          const match = m.match(/['"](\w+)['"]/);
+          return match ? match[1] : null;
+        }).filter(Boolean);
+        
+        capabilities.commands = [...new Set(allCommands)];
 
         // Extract features (look for function definitions)
         const functionMatches = code.match(/function\s+(\w+)/g) || [];
@@ -143,7 +149,10 @@ class DynamicLoader {
         
         // Extract commands
         const commandMatches = code.match(/\/(\w+)/g) || [];
-        capabilities.commands = [...new Set(commandMatches.map(m => m))];
+        capabilities.commands = [...new Set(commandMatches.map(m => {
+          const match = m.match(/\/(\w+)/);
+          return match ? match[0] : null; // Keep the /command format
+        }).filter(Boolean))];
 
         // Extract features
         const functionMatches = code.match(/function\s+(\w+)/g) || [];
