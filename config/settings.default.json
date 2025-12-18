@@ -1,0 +1,21 @@
+{
+  "minecraft": {
+    "serverHost": "localhost",
+    "serverPort": "25565",
+    "version": "1.20.1"
+  },
+  "bots": {
+    "maxBots": 5,
+    "namePrefix": "Bot",
+    "autoReconnect": true
+  },
+  "pipeline": {
+    "outputDirectory": "./output",
+    "format": "JSON",
+    "compression": true
+  },
+  "general": {
+    "logLevel": "info",
+    "autoStart": false
+  }
+}

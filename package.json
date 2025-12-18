@@ -1,0 +1,35 @@
+{
+  "name": "minecraft-content-pipeline",
+  "version": "1.0.0",
+  "description": "A multi-bot Minecraft content pipeline project powered by Node.js",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "build": "pkg . --targets node18-win-x64 --output dist/launcher.exe",
+    "build:all": "pkg . --targets node18-win-x64,node18-linux-x64,node18-macos-x64 --out-path dist"
+  },
+  "keywords": [
+    "minecraft",
+    "bot",
+    "content-pipeline"
+  ],
+  "author": "zmfspotify-rgb",
+  "license": "MIT",
+  "dependencies": {
+    "inquirer": "^8.2.5",
+    "chalk": "^4.1.2",
+    "conf": "^10.2.0"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
+  },
+  "pkg": {
+    "assets": [
+      "config/**/*"
+    ],
+    "targets": [
+      "node18-win-x64"
+    ],
+    "outputPath": "dist"
+  }
+}
