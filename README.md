@@ -6,9 +6,16 @@ A multi-bot Minecraft content pipeline project powered by Node.js
 
 ### Using the .exe Launcher (Windows)
 
+**Option 1: Download from repository**
+1. Download `launcher.exe` from the `dist/` folder in this repository
+2. Double-click `launcher.exe` to start the bot pipeline
+
+**Option 2: Download from releases**
 1. Download the latest `launcher.exe` from the [Releases](../../releases) page
 2. Double-click `launcher.exe` to start the bot pipeline
-3. Configure your settings in `config/config.json`
+
+**Configuration:**
+The launcher will create a default configuration on first run. To customize settings, edit `config/config.json` in the same directory as the launcher.
 
 ### Building the .exe Launcher
 
