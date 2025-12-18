@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft Bot Manager Pro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+        <h1>🎮 Bot Manager Pro</h1>
+      </div>
+      <nav class="nav-menu">
+        <div class="nav-item active" data-view="dashboard">
+          <span class="icon">📊</span>
+          <span>Dashboard</span>
+        </div>
+        <div class="nav-item" data-view="bots">
+          <span class="icon">🤖</span>
+          <span>Bots</span>
+        </div>
+        <div class="nav-item" data-view="schedule">
+          <span class="icon">📅</span>
+          <span>Schedule</span>
+        </div>
+        <div class="nav-item" data-view="logs">
+          <span class="icon">📝</span>
+          <span>Logs</span>
+        </div>
+        <div class="nav-item" data-view="settings">
+          <span class="icon">⚙️</span>
+          <span>Settings</span>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Dashboard View -->
+      <div class="view active" id="dashboard-view">
+        <div class="view-header">
+          <h2>Dashboard</h2>
+          <p>Overview of your bot network</p>
+        </div>
+        
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">🤖</div>
+            <div class="stat-info">
+              <div class="stat-value" id="total-bots">0</div>
+              <div class="stat-label">Total Bots</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🟢</div>
+            <div class="stat-info">
+              <div class="stat-value" id="online-bots">0</div>
+              <div class="stat-label">Online</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🔴</div>
+            <div class="stat-info">
+              <div class="stat-value" id="offline-bots">0</div>
+              <div class="stat-label">Offline</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📅</div>
+            <div class="stat-info">
+              <div class="stat-value" id="scheduled-bots">0</div>
+              <div class="stat-label">Scheduled</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-section">
+          <h3>Active Bots</h3>
+          <div id="active-bots-list" class="bot-list">
+            <!-- Active bots will be listed here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Bots View -->
+      <div class="view" id="bots-view">
+        <div class="view-header">
+          <h2>Bot Management</h2>
+          <button class="btn btn-primary" id="add-bot-btn">+ Add Bot</button>
+        </div>
+        
+        <div class="bots-grid" id="bots-grid">
+          <!-- Bot cards will be added here -->
+        </div>
+      </div>
+
+      <!-- Schedule View -->
+      <div class="view" id="schedule-view">
+        <div class="view-header">
+          <h2>Streaming Schedule</h2>
+          <button class="btn btn-primary" id="add-schedule-btn">+ Add Schedule</button>
+        </div>
+        
+        <div class="info-banner">
+          <span class="icon">ℹ️</span>
+          <p>Bots with "Always On" enabled will stay connected even outside their scheduled times</p>
+        </div>
+
+        <div class="schedule-list" id="schedule-list">
+          <!-- Schedule items will be added here -->
+        </div>
+      </div>
+
+      <!-- Logs View -->
+      <div class="view" id="logs-view">
+        <div class="view-header">
+          <h2>System Logs</h2>
+          <div class="logs-controls">
+            <select id="log-bot-filter" class="form-control">
+              <option value="all">All Bots</option>
+            </select>
+            <button class="btn btn-secondary" id="clear-logs-btn">Clear</button>
+          </div>
+        </div>
+        
+        <div class="logs-container" id="logs-container">
+          <!-- Logs will be added here -->
+        </div>
+      </div>
+
+      <!-- Settings View -->
+      <div class="view" id="settings-view">
+        <div class="view-header">
+          <h2>Settings</h2>
+        </div>
+        
+        <div class="settings-section">
+          <h3>Application Settings</h3>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="auto-start-scheduled">
+              Automatically start bots based on schedule
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="enable-notifications">
+              Enable notifications
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3>About</h3>
+          <p>Minecraft Bot Manager Pro v1.0.0</p>
+          <p>A professional tool for managing multiple Minecraft bots with scheduling capabilities.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Bot Modal -->
+  <div class="modal" id="add-bot-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add New Bot</h3>
+        <button class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Bot Name</label>
+          <input type="text" id="bot-name" class="form-control" placeholder="My Bot">
+        </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="bot-username" class="form-control" placeholder="BotName123">
+        </div>
+        <div class="form-group">
+          <label>Password (optional for offline mode)</label>
+          <input type="password" id="bot-password" class="form-control" placeholder="Leave empty for offline">
+        </div>
+        <div class="form-group">
+          <label>Server Address</label>
+          <input type="text" id="bot-server" class="form-control" placeholder="play.example.com">
+        </div>
+        <div class="form-group">
+          <label>Port</label>
+          <input type="number" id="bot-port" class="form-control" value="25565">
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="bot-always-on">
+            Always On (stay connected outside schedule)
+          </label>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="bot-auto-reconnect" checked>
+            Auto Reconnect
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancel-bot-btn">Cancel</button>
+        <button class="btn btn-primary" id="save-bot-btn">Save Bot</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Schedule Modal -->
+  <div class="modal" id="add-schedule-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add Schedule</h3>
+        <button class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Select Bot</label>
+          <select id="schedule-bot" class="form-control">
+            <!-- Options will be populated -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Days</label>
+          <div class="days-selector">
+            <label><input type="checkbox" value="0"> Sunday</label>
+            <label><input type="checkbox" value="1"> Monday</label>
+            <label><input type="checkbox" value="2"> Tuesday</label>
+            <label><input type="checkbox" value="3"> Wednesday</label>
+            <label><input type="checkbox" value="4"> Thursday</label>
+            <label><input type="checkbox" value="5"> Friday</label>
+            <label><input type="checkbox" value="6"> Saturday</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Start Time</label>
+          <input type="time" id="schedule-start-time" class="form-control" value="09:00">
+        </div>
+        <div class="form-group">
+          <label>End Time</label>
+          <input type="time" id="schedule-end-time" class="form-control" value="17:00">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancel-schedule-btn">Cancel</button>
+        <button class="btn btn-primary" id="save-schedule-btn">Save Schedule</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
