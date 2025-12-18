@@ -1,0 +1,80 @@
+{
+  "server": {
+    "host": "localhost",
+    "port": 25565,
+    "version": "1.20.1"
+  },
+  "bots": [
+    {
+      "username": "Bot1",
+      "viewerPort": 3000,
+      "enabled": true
+    },
+    {
+      "username": "Bot2",
+      "viewerPort": 3001,
+      "enabled": true
+    },
+    {
+      "username": "Bot3",
+      "viewerPort": 3002,
+      "enabled": false
+    }
+  ],
+  "scheduler": {
+    "enabled": true,
+    "timezone": "America/New_York",
+    "schedule": [
+      {
+        "time": "14:00",
+        "action": "start",
+        "duration": 120
+      },
+      {
+        "time": "18:00",
+        "action": "start",
+        "duration": 180
+      }
+    ]
+  },
+  "capture": {
+    "mode": "local",
+    "headless": false,
+    "outputDir": "./output",
+    "resolution": {
+      "width": 1920,
+      "height": 1080
+    },
+    "tiling": {
+      "rows": 2,
+      "cols": 2
+    },
+    "ffmpeg": {
+      "codec": "libx264",
+      "preset": "medium",
+      "crf": 23,
+      "fps": 30
+    },
+    "rtmp": {
+      "enabled": false,
+      "url": ""
+    }
+  },
+  "twitch": {
+    "enabled": false,
+    "channel": "",
+    "botUsername": "",
+    "oauth": ""
+  },
+  "behaviors": {
+    "autoReconnect": true,
+    "buildHut": true,
+    "wanderRange": 50,
+    "chatResponses": true
+  },
+  "monitoring": {
+    "enabled": true,
+    "port": 8080,
+    "logLevel": "info"
+  }
+}
