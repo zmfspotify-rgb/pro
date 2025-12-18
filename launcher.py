@@ -17,6 +17,7 @@ import os
 import time
 import logging
 import threading
+import re
 from typing import Dict, List, Optional, Any
 from datetime import datetime
 from collections import defaultdict
@@ -145,7 +146,9 @@ class AISMPLauncher:
         log_file = log_config.get('file', 'logs/aismp_launcher.log')
         
         # Create logs directory if it doesn't exist
-        os.makedirs(os.path.dirname(log_file), exist_ok=True)
+        log_dir = os.path.dirname(log_file)
+        if log_dir:  # Only create directory if there's a path component
+            os.makedirs(log_dir, exist_ok=True)
         
         # Configure logging
         handlers = []
@@ -304,9 +307,17 @@ class AISMPLauncher:
             
             # Configure voice settings
             voices = engine.getProperty('voices')
+            
+            # Check if any voices are available
+            if not voices:
+                self.logger.warning(f"No TTS voices available on system for {bot_name}")
+                return
+            
             voice_id = voice_config.get('voice_id', 0)
             if 0 <= voice_id < len(voices):
                 engine.setProperty('voice', voices[voice_id].id)
+            else:
+                self.logger.warning(f"Voice ID {voice_id} not available, using default voice")
             
             engine.setProperty('rate', voice_config.get('rate', 150))
             engine.setProperty('volume', voice_config.get('volume', 1.0))
@@ -351,9 +362,15 @@ class AISMPLauncher:
             self.logger.info(f"Bot {bot_name} routed to {allocated_platform}")
             
             # Get platform-specific configuration
-            platform_config = next(
-                p for p in platforms if p['name'] == allocated_platform
-            )
+            platform_config = None
+            for p in platforms:
+                if p['name'] == allocated_platform:
+                    platform_config = p
+                    break
+            
+            if not platform_config:
+                self.logger.error(f"Platform configuration not found for {allocated_platform}")
+                return allocated_platform
             
             # Setup FFmpeg streaming pipeline
             self._setupStreamPipeline(bot_config, platform_config)
@@ -376,29 +393,61 @@ class AISMPLauncher:
         stream_key = platform_config.get('stream_key', '')
         
         # Replace environment variables in stream key
-        import re
         env_vars = re.findall(r'\$\{(\w+)\}', stream_key)
         for var in env_vars:
-            stream_key = stream_key.replace(f'${{{var}}}', os.environ.get(var, ''))
+            env_value = os.environ.get(var)
+            if not env_value:
+                self.logger.warning(f"Environment variable {var} not set for {bot_name}")
+                env_value = ''
+            stream_key = stream_key.replace(f'${{{var}}}', env_value)
         
         ffmpeg_config = bot_config.get('streaming', {}).get('ffmpeg', {})
         
-        # Build FFmpeg command (this would be executed in production)
+        # Get platform-specific RTMP URL
+        rtmp_url = platform_config.get('rtmp_url', f'rtmp://{platform_name}.tv/live/')
+        rtmp_destination = f'{rtmp_url}{stream_key}'
+        
+        # Detect OS for appropriate capture method
+        import platform
+        os_type = platform.system()
+        
+        # Build FFmpeg command based on OS
+        if os_type == 'Linux':
+            video_input = ['-f', 'x11grab', '-video_size', ffmpeg_config.get('resolution', '1920x1080')]
+            video_source = ':0.0'
+            audio_input = ['-f', 'pulse']
+            audio_source = 'default'
+        elif os_type == 'Darwin':  # macOS
+            video_input = ['-f', 'avfoundation', '-video_size', ffmpeg_config.get('resolution', '1920x1080')]
+            video_source = '1:0'  # Capture screen 1, audio device 0
+            audio_input = ['-f', 'avfoundation']
+            audio_source = ':0'
+        elif os_type == 'Windows':
+            video_input = ['-f', 'gdigrab', '-video_size', ffmpeg_config.get('resolution', '1920x1080')]
+            video_source = 'desktop'
+            audio_input = ['-f', 'dshow']
+            audio_source = 'audio="Microphone"'
+        else:
+            self.logger.warning(f"Unknown OS {os_type}, using Linux defaults")
+            video_input = ['-f', 'x11grab', '-video_size', ffmpeg_config.get('resolution', '1920x1080')]
+            video_source = ':0.0'
+            audio_input = ['-f', 'pulse']
+            audio_source = 'default'
+        
         ffmpeg_cmd = [
             'ffmpeg',
-            '-f', 'x11grab',  # Screen capture
-            '-video_size', ffmpeg_config.get('resolution', '1920x1080'),
+            *video_input,
             '-framerate', str(ffmpeg_config.get('fps', 30)),
-            '-i', ':0.0',  # Display
-            '-f', 'pulse',  # Audio input
-            '-i', 'default',
+            '-i', video_source,
+            *audio_input,
+            '-i', audio_source,
             '-c:v', 'libx264',
             '-preset', ffmpeg_config.get('preset', 'fast'),
             '-b:v', ffmpeg_config.get('video_bitrate', '2500k'),
             '-c:a', 'aac',
             '-b:a', ffmpeg_config.get('audio_bitrate', '128k'),
             '-f', 'flv',
-            f'rtmp://{platform_name}.tv/live/{stream_key}'
+            rtmp_destination
         ]
         
         self.logger.debug(f"FFmpeg pipeline for {bot_name}: {' '.join(ffmpeg_cmd)}")
