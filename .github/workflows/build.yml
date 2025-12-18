@@ -29,11 +29,11 @@ jobs:
     - name: Build launcher
       run: npm run build
       
-    - name: Upload launcher artifact
+    - name: Upload AvatarOS artifact
       uses: actions/upload-artifact@v4
       with:
-        name: launcher-exe
-        path: dist/launcher.exe
+        name: AvatarOS-exe
+        path: dist/AvatarOS.exe
         
   release:
     needs: build

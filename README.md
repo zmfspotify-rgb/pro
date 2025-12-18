@@ -2,6 +2,23 @@
 
 An advanced AI-powered Minecraft bot system with memory, learning capabilities, and dynamic plugin/mod support. Upload any plugin or mod and watch the AI bots automatically figure out how to use them!
 
+## 🎯 GET AVATAROS.EXE - NO MANUAL INSTALLATION NEEDED!
+
+### ⚡ Quick Download Options:
+
+**🏆 RECOMMENDED: Download Pre-Built AvatarOS.exe**
+1. **[Download from Releases](../../releases)** - Get the latest version instantly
+2. **[Download from Actions](../../actions)** - Get the newest build from CI/CD
+3. **See [HOW_TO_GET_AVATARSOS.md](HOW_TO_GET_AVATARSOS.md)** for detailed download instructions
+
+**💻 The .exe file is a complete standalone launcher with ALL features built-in:**
+- ✅ No manual installation required
+- ✅ No dependencies to install
+- ✅ Just download and run!
+- ✅ Size: ~426MB (includes everything)
+
+> **Why not in repository?** The file exceeds GitHub's 100MB limit, but it's automatically built and available via Releases/Actions.
+
 ## 🌟 Key Features
 
 ### 🤖 **AI Memory & Learning**
@@ -32,9 +49,14 @@ An advanced AI-powered Minecraft bot system with memory, learning capabilities, 
 
 ## 🚀 Quick Start
 
-### Building AvatarOS.exe
+### Get AvatarOS.exe (Choose One Method)
 
-**The AvatarOS.exe is not included in the repository due to its size (426MB+). You must build it:**
+**Method 1: Download Pre-Built (EASIEST - No Build Required!)**
+- **[Download from Releases](../../releases)** - Official releases
+- **[Download from Actions](../../actions)** - Latest automated builds
+- **See [HOW_TO_GET_AVATARSOS.md](HOW_TO_GET_AVATARSOS.md)** for step-by-step instructions
+
+**Method 2: Build It Yourself (Optional)**
 
 ```bash
 # Install dependencies
@@ -46,16 +68,15 @@ npm run build
 
 The `AvatarOS.exe` will be created in the `dist/` directory.
 
-**Alternative:** Download pre-built AvatarOS from the [Releases](../../releases) page when available.
-
 ### Running AvatarOS
 
-**Option 1: Using the .exe launcher (Windows)**
-1. Build AvatarOS with `npm run build` (see above)
-2. Double-click `dist/AvatarOS.exe`
+**Option 1: Using AvatarOS.exe (Windows) - RECOMMENDED**
+1. Download AvatarOS.exe (see above)
+2. Double-click `AvatarOS.exe` to run
 3. To open config editor: `AvatarOS.exe --config`
+4. **That's it! All features are included - no manual installation!**
 
-**Option 2: Run from source**
+**Option 2: Run from source (Advanced users)**
 ```bash
 # Install dependencies
 npm install
