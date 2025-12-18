@@ -91,8 +91,13 @@ class TwitchChatHandler {
   }
 
   handleChatInteraction(username, message) {
+    // Configuration constants
+    const RESPONSE_PROBABILITY = 0.2; // 20% chance to respond
+    const MIN_DELAY_MS = 1000;
+    const MAX_DELAY_MS = 3000;
+    
     // AI bots can randomly respond to chat messages
-    if (Math.random() < 0.2) { // 20% chance to respond
+    if (Math.random() < RESPONSE_PROBABILITY) {
       const responses = [
         `Great point, ${username}!`,
         `I agree with ${username}!`,
@@ -104,9 +109,10 @@ class TwitchChatHandler {
       const response = responses[Math.floor(Math.random() * responses.length)];
       
       // Delay to make it feel more natural
+      const delay = MIN_DELAY_MS + Math.random() * (MAX_DELAY_MS - MIN_DELAY_MS);
       setTimeout(() => {
         this.sendMessage(response);
-      }, 1000 + Math.random() * 2000);
+      }, delay);
     }
   }
 

@@ -131,18 +131,22 @@ class MinecraftBotPipeline {
   }
 
   startScheduleMonitor(config) {
+    // Configuration constants
+    const CHECK_INTERVAL_MS = 60000; // Check every minute
+    const STATUS_LOG_PROBABILITY = 0.2; // 20% chance to log status
+    
     // Check streaming schedules every minute
     setInterval(() => {
       if (this.botManager) {
         this.botManager.updateStreamingStatus();
         
-        // Log status every 5 minutes
-        if (Math.random() < 0.2) {
+        // Log status every 5 minutes (approximately)
+        if (Math.random() < STATUS_LOG_PROBABILITY) {
           const status = this.botManager.getStatus();
           console.log(`[STATUS] Active: ${status.activePlayers}/${status.totalPlayers} | Streaming: ${status.streamingPlayers}`);
         }
       }
-    }, 60000); // Every minute
+    }, CHECK_INTERVAL_MS);
   }
 
   setupShutdownHandlers() {

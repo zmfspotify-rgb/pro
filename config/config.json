@@ -15,7 +15,7 @@
     {
       "id": "player1",
       "username": "AIPlayer1",
-      "voiceModel": "female_1",
+      "voiceModel": "female_1_soft",
       "personality": "friendly",
       "streamingSchedule": {
         "enabled": true,
@@ -27,7 +27,7 @@
     {
       "id": "player2",
       "username": "AIPlayer2",
-      "voiceModel": "male_1",
+      "voiceModel": "male_1_deep",
       "personality": "adventurous",
       "streamingSchedule": {
         "enabled": true,
