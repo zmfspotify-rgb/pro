@@ -4,6 +4,8 @@
 
 const mineflayer = require('mineflayer');
 const { pathfinder, Movements, goals } = require('mineflayer-pathfinder');
+const PluginManager = require('./PluginManager');
+const ModManager = require('./ModManager');
 
 class AIPlayer {
   constructor(config, playerConfig, streamScheduler, voiceSystem, chatHandler) {
@@ -15,6 +17,8 @@ class AIPlayer {
     this.bot = null;
     this.isActive = false;
     this.isStreaming = false;
+    this.pluginManager = null;
+    this.modManager = null;
   }
 
   async connect() {
@@ -32,6 +36,10 @@ class AIPlayer {
       // Load pathfinder
       this.bot.loadPlugin(pathfinder);
 
+      // Initialize plugin and mod managers
+      this.pluginManager = new PluginManager(this.config);
+      this.modManager = new ModManager(this.config, this.voiceSystem);
+
       this.setupEventHandlers();
       this.isActive = true;
       
@@ -45,6 +53,15 @@ class AIPlayer {
   setupEventHandlers() {
     this.bot.on('spawn', () => {
       console.log(`[${this.playerConfig.username}] Spawned in game!`);
+      
+      // Load plugins and mods after spawn
+      if (this.pluginManager) {
+        this.pluginManager.loadPlugins(this.bot, this.playerConfig);
+      }
+      
+      if (this.modManager) {
+        this.modManager.loadMods(this.bot, this.playerConfig);
+      }
       
       // Check if should start streaming
       if (this.streamScheduler.shouldStream(this.playerConfig)) {

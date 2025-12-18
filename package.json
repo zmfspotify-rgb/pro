@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "config": "node src/ConfigEditor.js",
     "build": "pkg . --targets node18-win-x64 --output dist/launcher.exe",
     "build:all": "pkg . --targets node18-win-x64,node18-linux-x64,node18-macos-x64 --out-path dist"
   },
@@ -26,7 +27,9 @@
     "tmi.js": "^1.8.5",
     "node-rtsp-stream": "^0.0.9",
     "canvas": "^2.11.2",
-    "say": "^0.16.0"
+    "say": "^0.16.0",
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.11.0"
   },
   "devDependencies": {
     "pkg": "^5.8.1"

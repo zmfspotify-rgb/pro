@@ -45,6 +45,24 @@
     "gameCommentary": true,
     "voiceEnabled": true
   },
+  "plugins": {
+    "enabled": true,
+    "lifeStealSMP": {
+      "enabled": true,
+      "maxHearts": 20,
+      "minHearts": 2
+    }
+  },
+  "mods": {
+    "enabled": true,
+    "simpleVoiceChat": {
+      "enabled": true,
+      "port": 24454,
+      "voiceDistance": 48,
+      "useVoiceModel": true,
+      "allowPrivateChat": true
+    }
+  },
   "voiceModels": {
     "female": [
       "female_1_soft",

@@ -23,6 +23,14 @@ class MinecraftBotPipeline {
   }
 
   async start() {
+    // Check if user wants to open config editor
+    if (process.argv.includes('--config') || process.argv.includes('-c')) {
+      console.log('Opening configuration editor...');
+      const ConfigEditor = require('./ConfigEditor');
+      new ConfigEditor();
+      return;
+    }
+
     console.log('===========================================');
     console.log('  Minecraft Bot Pipeline Launcher v' + this.version);
     console.log('  Multi-AI Player Twitch Streaming System');
@@ -37,6 +45,9 @@ class MinecraftBotPipeline {
     console.log('AI Players:', config.aiPlayers.length);
     console.log('Twitch Integration:', config.twitch.enabled ? 'Enabled' : 'Disabled');
     console.log('Voice System:', config.features.voiceEnabled ? 'Enabled' : 'Disabled');
+    console.log('Plugins:', config.plugins?.enabled ? 'Enabled' : 'Disabled');
+    console.log('Mods:', config.mods?.enabled ? 'Enabled' : 'Disabled');
+    console.log('\nTip: Run with --config or -c to open the configuration editor');
     console.log('\n===========================================\n');
 
     // Initialize systems
