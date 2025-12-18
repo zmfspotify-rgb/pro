@@ -112,7 +112,7 @@ class Application {
         default: currentConfig.serverPort || '25565',
         validate: (input) => {
           const port = parseInt(input);
-          return (port > 0 && port < 65536) || 'Please enter a valid port number';
+          return (port > 0 && port <= 65535) || 'Please enter a valid port number (1-65535)';
         }
       },
       {

@@ -13,10 +13,13 @@ function displayBanner() {
 }
 
 function clearScreen() {
-  // Clear console
+  // Clear console - try multiple methods for compatibility
   console.clear();
-  // Alternative method for Windows
-  process.stdout.write('\x1Bc');
+  // Fallback for terminals that don't support console.clear()
+  if (process.stdout.isTTY) {
+    // ANSI escape sequence for clearing screen - widely supported
+    process.stdout.write('\x1Bc');
+  }
 }
 
 function formatDate(date) {

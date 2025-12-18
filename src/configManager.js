@@ -3,7 +3,22 @@ const path = require('path');
 
 class ConfigManager {
   constructor() {
-    this.configPath = path.join(process.cwd(), 'config', 'settings.json');
+    // Determine the application root directory
+    // When bundled with pkg, use process.cwd()
+    // When run normally, use the directory containing the main script
+    let appDir;
+    if (process.pkg) {
+      // Running as packaged executable
+      appDir = path.dirname(process.execPath);
+    } else if (require.main) {
+      // Running as regular Node.js app
+      appDir = path.dirname(require.main.filename);
+    } else {
+      // Fallback to current working directory
+      appDir = process.cwd();
+    }
+    
+    this.configPath = path.join(appDir, 'config', 'settings.json');
     this.config = this.loadConfig();
   }
 
