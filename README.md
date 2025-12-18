@@ -1,6 +1,6 @@
 # Minecraft AI Bot Pipeline with Twitch Streaming
 
-A multi-bot Minecraft content pipeline project powered by Node.js featuring AI players that can stream to Twitch with realistic voices and chat interaction.
+A multi-bot Minecraft content pipeline project powered by Node.js featuring AI players that can stream to Twitch with realistic voices, chat interaction, plugin/mod support, and an in-launcher configuration editor.
 
 ## 🌟 Features
 
@@ -11,6 +11,9 @@ A multi-bot Minecraft content pipeline project powered by Node.js featuring AI p
 - **📅 Smart Scheduling** - Automatic streaming schedules prevent overlaps
 - **🎮 Mineflayer Integration** - Advanced bot AI with pathfinding and game awareness
 - **🔄 Auto-Reconnect** - Bots automatically reconnect if disconnected
+- **⚙️ In-Launcher Config Editor** - Interactive GUI to edit settings without touching config files
+- **🔌 Plugin Support** - Lifesteal SMP plugin with heart tracking
+- **🎛️ Mod Support** - Simple Voice Chat mod with private channels, passwords, and whisper commands
 
 ## 🚀 Quick Start
 
@@ -34,8 +37,8 @@ The `launcher.exe` will be created in the `dist/` directory.
 
 **Option 1: Using the .exe launcher (Windows)**
 1. Build the launcher with `npm run build` (see above)
-2. Configure `config/config.json` (see configuration below)
-3. Double-click `dist/launcher.exe`
+2. Double-click `dist/launcher.exe`
+3. To open config editor: `launcher.exe --config`
 
 **Option 2: Run from source**
 ```bash
@@ -44,7 +47,114 @@ npm install
 
 # Run the application
 npm start
+
+# Or open configuration editor
+npm run config
+# OR
+npm start -- --config
 ```
+
+## ⚙️ In-Launcher Configuration Editor
+
+Edit all settings inside the launcher with an interactive GUI!
+
+```bash
+# Open config editor
+npm run config
+# OR
+npm start -- --config
+```
+
+**Features:**
+- Interactive menu-driven interface
+- Edit server settings, Twitch credentials, AI players
+- Configure plugins and mods
+- Add/remove AI players
+- Save and apply changes instantly
+- No need to manually edit JSON files
+
+**Navigation:**
+- ↑↓ - Navigate menu
+- Enter - Select option
+- Tab - Switch panels
+- 'e' - Edit current section
+- 'a' - Add new (on AI Players screen)
+- 'd' - Delete (on AI Players screen)
+- Ctrl+S - Save configuration
+- Ctrl+C - Exit
+
+## 📦 Build Commands
+
+- `npm run build` - Build Windows .exe launcher
+- `npm run build:all` - Build launchers for Windows, Linux, and macOS
+- `npm start` - Run the application directly with Node.js
+- `npm run config` - Open the interactive configuration editor
+
+## 🔌 Plugins
+
+### Lifesteal SMP Plugin
+
+When enabled, AI players participate in Lifesteal mechanics:
+- Start with 10 hearts
+- Gain 1 heart when killing another player (max 20)
+- Lose 1 heart when dying (min 2)
+- Get eliminated if hearts reach minimum
+
+**Commands:**
+- `!hearts` or `!hp` - Check current hearts
+
+**Configuration:**
+```json
+{
+  "plugins": {
+    "enabled": true,
+    "lifeStealSMP": {
+      "enabled": true,
+      "maxHearts": 20,
+      "minHearts": 2
+    }
+  }
+}
+```
+
+## 🎛️ Mods
+
+### Simple Voice Chat Mod
+
+AI players can use voice chat with realistic voice models!
+
+**Features:**
+- **Proximity Voice** - Bots speak using voice models when near players
+- **Private Channels** - Create password-protected voice channels
+- **Whisper Command** - Private voice messages to specific players
+- **Voice Integration** - Uses configured voice models for TTS
+
+**Commands:**
+- `!voice` or `!vc` - Show voice chat info
+- `!vmute` - Toggle voice mute
+- `!vcreate <name> [password]` - Create private voice channel
+- `!vjoin <name> [password]` - Join voice channel
+- `!vleave` - Leave current voice channel
+- `!vlist` - List available voice channels
+- `/w <player> <message>` - Whisper to player with voice
+
+**Configuration:**
+```json
+{
+  "mods": {
+    "enabled": true,
+    "simpleVoiceChat": {
+      "enabled": true,
+      "port": 24454,
+      "voiceDistance": 48,
+      "useVoiceModel": true,
+      "allowPrivateChat": true
+    }
+  }
+}
+```
+
+**Voice Distance:** Bots can hear and respond to players within 48 blocks by default.
 
 ## ⚙️ Configuration
 
