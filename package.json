@@ -47,8 +47,10 @@
     ]
   },
   "dependencies": {
-    "electron": "^39.2.7",
-    "electron-builder": "^26.0.12",
     "mineflayer": "^4.25.0"
+  },
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12"
   }
 }
