@@ -1,22 +1,25 @@
 {
-  "name": "minecraft-bot-pipeline",
-  "version": "1.0.0",
-  "description": "A multi-bot Minecraft content pipeline project powered by Node.js",
+  "name": "avatarOS",
+  "version": "2.0.0",
+  "description": "AvatarOS - AI-powered Minecraft bot system with dynamic plugin learning and memory",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
     "config": "node src/ConfigEditor.js",
-    "build": "pkg . --targets node18-win-x64 --output dist/launcher.exe",
+    "build": "pkg . --targets node18-win-x64 --output dist/AvatarOS.exe",
     "build:all": "pkg . --targets node18-win-x64,node18-linux-x64,node18-macos-x64 --out-path dist"
   },
   "bin": {
-    "minecraft-bot-pipeline": "src/index.js"
+    "avatarOS": "src/index.js"
   },
   "keywords": [
     "minecraft",
     "bot",
     "pipeline",
-    "automation"
+    "automation",
+    "AI",
+    "memory",
+    "learning"
   ],
   "author": "zmfspotify-rgb",
   "license": "MIT",
@@ -36,7 +39,10 @@
   "pkg": {
     "assets": [
       "config/**/*",
-      "voices/**/*"
+      "voices/**/*",
+      "plugins/**/*",
+      "mods/**/*",
+      "memory/**/*"
     ],
     "outputPath": "dist"
   }

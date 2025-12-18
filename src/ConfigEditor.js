@@ -84,7 +84,7 @@ class ConfigEditor {
     // Create screen
     this.screen = blessed.screen({
       smartCSR: true,
-      title: 'Minecraft Bot Pipeline - Configuration Editor'
+      title: 'AvatarOS - Configuration Editor'
     });
 
     // Main container
@@ -104,7 +104,7 @@ class ConfigEditor {
       left: 'center',
       width: '80%',
       height: 3,
-      content: '{center}{bold}Minecraft Bot Pipeline - Configuration Editor{/bold}{/center}',
+      content: '{center}{bold}🤖 AvatarOS - Configuration Editor 🤖{/bold}{/center}',
       tags: true,
       style: {
         fg: 'cyan',

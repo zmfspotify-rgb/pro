@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Minecraft Bot Pipeline - Main Entry Point
- * A multi-bot Minecraft content pipeline project with AI players and Twitch streaming
+ * AvatarOS - AI-Powered Minecraft Bot System
+ * Advanced AI bots with memory, learning, and dynamic plugin/mod support
  */
 
 const path = require('path');
@@ -12,7 +12,7 @@ const StreamScheduler = require('./StreamScheduler');
 const VoiceSystem = require('./VoiceSystem');
 const TwitchChatHandler = require('./TwitchChatHandler');
 
-class MinecraftBotPipeline {
+class AvatarOS {
   constructor() {
     this.configPath = path.join(__dirname, '../config/config.json');
     this.version = require('../package.json').version;
@@ -25,29 +25,32 @@ class MinecraftBotPipeline {
   async start() {
     // Check if user wants to open config editor
     if (process.argv.includes('--config') || process.argv.includes('-c')) {
-      console.log('Opening configuration editor...');
+      console.log('Opening AvatarOS Configuration Editor...');
       const ConfigEditor = require('./ConfigEditor');
       new ConfigEditor();
       return;
     }
 
-    console.log('===========================================');
-    console.log('  Minecraft Bot Pipeline Launcher v' + this.version);
-    console.log('  Multi-AI Player Twitch Streaming System');
-    console.log('===========================================\n');
+    console.log('═══════════════════════════════════════════');
+    console.log('           🤖 AvatarOS v' + this.version + ' 🤖           ');
+    console.log('   AI-Powered Minecraft Bot System');
+    console.log('   with Memory & Dynamic Learning');
+    console.log('═══════════════════════════════════════════\n');
 
     // Load configuration
     const config = this.loadConfig();
     
-    console.log('Configuration loaded successfully!');
+    console.log('✓ Configuration loaded successfully!');
     console.log('Server:', config.server + ':' + config.port);
     console.log('Minecraft Version:', config.version);
     console.log('AI Players:', config.aiPlayers.length);
-    console.log('Twitch Integration:', config.twitch.enabled ? 'Enabled' : 'Disabled');
-    console.log('Voice System:', config.features.voiceEnabled ? 'Enabled' : 'Disabled');
-    console.log('Plugins:', config.plugins?.enabled ? 'Enabled' : 'Disabled');
-    console.log('Mods:', config.mods?.enabled ? 'Enabled' : 'Disabled');
-    console.log('\nTip: Run with --config or -c to open the configuration editor');
+    console.log('Twitch Integration:', config.twitch.enabled ? '✓ Enabled' : '✗ Disabled');
+    console.log('Voice System:', config.features.voiceEnabled ? '✓ Enabled' : '✗ Disabled');
+    console.log('Plugins:', config.plugins?.enabled ? '✓ Enabled' : '✗ Disabled');
+    console.log('Mods:', config.mods?.enabled ? '✓ Enabled' : '✗ Disabled');
+    console.log('AI Memory:', '✓ Active');
+    console.log('Dynamic Learning:', '✓ Active');
+    console.log('\n💡 Tip: Run with --config or -c to open the configuration editor');
     console.log('\n===========================================\n');
 
     // Initialize systems
@@ -184,11 +187,11 @@ class MinecraftBotPipeline {
 
 // Start the application
 if (require.main === module) {
-  const pipeline = new MinecraftBotPipeline();
-  pipeline.start().catch(error => {
+  const avatarOS = new AvatarOS();
+  avatarOS.start().catch(error => {
     console.error('[ERROR] Fatal error:', error);
     process.exit(1);
   });
 }
 
-module.exports = MinecraftBotPipeline;
+module.exports = AvatarOS;

@@ -1,11 +1,13 @@
 /**
- * AI Player Manager - Handles multiple Mineflayer bots
+ * AI Player Manager - Handles multiple Mineflayer bots with AI memory and learning
  */
 
 const mineflayer = require('mineflayer');
 const { pathfinder, Movements, goals } = require('mineflayer-pathfinder');
 const PluginManager = require('./PluginManager');
 const ModManager = require('./ModManager');
+const AIMemorySystem = require('./AIMemorySystem');
+const DynamicLoader = require('./DynamicLoader');
 
 class AIPlayer {
   constructor(config, playerConfig, streamScheduler, voiceSystem, chatHandler) {
@@ -19,6 +21,8 @@ class AIPlayer {
     this.isStreaming = false;
     this.pluginManager = null;
     this.modManager = null;
+    this.memorySystem = null;
+    this.dynamicLoader = null;
   }
 
   async connect() {
@@ -36,6 +40,14 @@ class AIPlayer {
       // Load pathfinder
       this.bot.loadPlugin(pathfinder);
 
+      // Initialize AI Memory System
+      this.memorySystem = new AIMemorySystem(this.playerConfig);
+      console.log(`[${this.playerConfig.username}] AI Memory initialized`);
+      
+      // Initialize Dynamic Loader
+      this.dynamicLoader = new DynamicLoader(this.memorySystem);
+      console.log(`[${this.playerConfig.username}] Dynamic Loader initialized`);
+
       // Initialize plugin and mod managers
       this.pluginManager = new PluginManager(this.config);
       this.modManager = new ModManager(this.config, this.voiceSystem);
@@ -51,8 +63,36 @@ class AIPlayer {
   }
 
   setupEventHandlers() {
-    this.bot.on('spawn', () => {
+    this.bot.on('spawn', async () => {
       console.log(`[${this.playerConfig.username}] Spawned in game!`);
+      
+      // Remember spawn event
+      this.memorySystem.remember({
+        type: 'spawn',
+        data: { location: this.bot.entity?.position },
+        importance: 5
+      });
+      
+      // Discover and learn about uploaded plugins/mods
+      if (this.dynamicLoader) {
+        await this.dynamicLoader.discoverPlugins();
+        await this.dynamicLoader.discoverMods();
+        
+        // Auto-learn discovered plugins/mods
+        const plugins = this.dynamicLoader.getDiscoveredPlugins();
+        const mods = this.dynamicLoader.getDiscoveredMods();
+        
+        console.log(`[${this.playerConfig.username}] Discovered ${plugins.length} plugins, ${mods.length} mods`);
+        
+        // AI learns to use each plugin/mod
+        for (const plugin of plugins) {
+          await this.dynamicLoader.autoLearn(this.bot, 'plugin', plugin.name);
+        }
+        
+        for (const mod of mods) {
+          await this.dynamicLoader.autoLearn(this.bot, 'mod', mod.name);
+        }
+      }
       
       // Load plugins and mods after spawn
       if (this.pluginManager) {
@@ -76,6 +116,24 @@ class AIPlayer {
 
     this.bot.on('chat', (username, message) => {
       if (username === this.bot.username) return;
+      
+      // Remember chat interaction
+      this.memorySystem.recordPlayerInteraction(username, {
+        type: 'chat',
+        context: message
+      });
+      
+      // AI thinks about the situation
+      const thought = this.memorySystem.think({
+        situation: 'player_chat',
+        player: username,
+        message: message
+      });
+      
+      // Log AI's thought process
+      if (thought.suggestions.length > 0) {
+        console.log(`[${this.playerConfig.username}] AI thinking: ${thought.suggestions[0].action} (${thought.suggestions[0].reason})`);
+      }
       
       console.log(`[${this.playerConfig.username}] Chat: <${username}> ${message}`);
       
