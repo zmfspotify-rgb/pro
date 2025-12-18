@@ -19,12 +19,22 @@
   ],
   "author": "zmfspotify-rgb",
   "license": "MIT",
+  "dependencies": {
+    "mineflayer": "^4.20.1",
+    "mineflayer-pathfinder": "^2.4.4",
+    "prismarine-viewer": "^1.24.0",
+    "tmi.js": "^1.8.5",
+    "node-rtsp-stream": "^0.0.9",
+    "canvas": "^2.11.2",
+    "say": "^0.16.0"
+  },
   "devDependencies": {
     "pkg": "^5.8.1"
   },
   "pkg": {
     "assets": [
-      "config/**/*"
+      "config/**/*",
+      "voices/**/*"
     ],
     "outputPath": "dist"
   }

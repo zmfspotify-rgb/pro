@@ -1,13 +1,70 @@
 {
-  "botName": "MinecraftBot",
   "server": "localhost",
   "port": 25565,
   "version": "1.20.1",
   "autoReconnect": true,
   "reconnectDelay": 5000,
+  "twitch": {
+    "enabled": true,
+    "channelName": "minecraft_ai_collab",
+    "oauth": "oauth:your_twitch_oauth_token_here",
+    "clientId": "your_twitch_client_id_here",
+    "streamingEnabled": true
+  },
+  "aiPlayers": [
+    {
+      "id": "player1",
+      "username": "AIPlayer1",
+      "voiceModel": "female_1",
+      "personality": "friendly",
+      "streamingSchedule": {
+        "enabled": true,
+        "days": ["Monday", "Wednesday", "Friday"],
+        "startTime": "14:00",
+        "duration": 120
+      }
+    },
+    {
+      "id": "player2",
+      "username": "AIPlayer2",
+      "voiceModel": "male_1",
+      "personality": "adventurous",
+      "streamingSchedule": {
+        "enabled": true,
+        "days": ["Tuesday", "Thursday", "Saturday"],
+        "startTime": "14:00",
+        "duration": 120
+      }
+    }
+  ],
   "features": {
     "autoMine": false,
     "autoFarm": false,
-    "pathfinding": true
+    "pathfinding": true,
+    "chatInteraction": true,
+    "gameCommentary": true,
+    "voiceEnabled": true
+  },
+  "voiceModels": {
+    "female": [
+      "female_1_soft",
+      "female_2_energetic",
+      "female_3_calm",
+      "female_4_cheerful",
+      "female_5_professional",
+      "female_6_warm",
+      "female_7_playful",
+      "female_8_confident"
+    ],
+    "male": [
+      "male_1_deep",
+      "male_2_friendly",
+      "male_3_energetic",
+      "male_4_calm",
+      "male_5_professional",
+      "male_6_warm",
+      "male_7_enthusiastic",
+      "male_8_confident"
+    ]
   }
 }
