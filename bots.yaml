@@ -1,0 +1,155 @@
+# AISMP Free Launcher - Bot Configuration
+# This file configures Minecraft bots for automated streaming and management
+
+bots:
+  - name: "StreamBot1"
+    username: "StreamBot1"
+    auth_type: "offline"  # Options: offline, microsoft, mojang
+    
+    # Minecraft Server Connection
+    server:
+      host: "localhost"
+      port: 25565
+      version: "1.19.2"
+    
+    # Skin Configuration
+    skin:
+      enabled: true
+      source: "url"  # Options: url, file, player
+      value: "https://mineskin.eu/skin/example1"
+      apply_method: "skinsrestorer"  # Options: skinsrestorer, plugin_command
+    
+    # Voice Configuration (PyTTSx3)
+    voice:
+      enabled: true
+      engine: "pyttsx3"
+      voice_id: 0  # Voice index (0 = default)
+      rate: 150  # Speech rate (words per minute)
+      volume: 1.0  # Volume (0.0 to 1.0)
+      output_device: "virtual_cable"  # Audio routing for OBS/FFmpeg
+    
+    # Streaming Configuration
+    streaming:
+      enabled: true
+      platforms:
+        - name: "twitch"
+          priority: 1
+          channel: "streambot1_channel"
+          stream_key: "${TWITCH_STREAM_KEY_1}"
+          fallback: true
+        - name: "youtube"
+          priority: 2
+          channel: "streambot1_yt"
+          stream_key: "${YOUTUBE_STREAM_KEY_1}"
+          fallback: true
+        - name: "tiktok"
+          priority: 3
+          channel: "streambot1_tt"
+          stream_key: "${TIKTOK_STREAM_KEY_1}"
+          fallback: true
+      
+      # FFmpeg streaming settings
+      ffmpeg:
+        video_bitrate: "2500k"
+        audio_bitrate: "128k"
+        fps: 30
+        resolution: "1920x1080"
+        preset: "fast"
+  
+  - name: "StreamBot2"
+    username: "StreamBot2"
+    auth_type: "offline"
+    
+    server:
+      host: "localhost"
+      port: 25565
+      version: "1.19.2"
+    
+    skin:
+      enabled: true
+      source: "url"
+      value: "https://mineskin.eu/skin/example2"
+      apply_method: "skinsrestorer"
+    
+    voice:
+      enabled: true
+      engine: "pyttsx3"
+      voice_id: 1
+      rate: 160
+      volume: 0.9
+      output_device: "virtual_cable"
+    
+    streaming:
+      enabled: true
+      platforms:
+        - name: "twitch"
+          priority: 1
+          channel: "streambot2_channel"
+          stream_key: "${TWITCH_STREAM_KEY_2}"
+          fallback: true
+        - name: "youtube"
+          priority: 2
+          channel: "streambot2_yt"
+          stream_key: "${YOUTUBE_STREAM_KEY_2}"
+          fallback: true
+
+  - name: "StreamBot3"
+    username: "StreamBot3"
+    auth_type: "offline"
+    
+    server:
+      host: "localhost"
+      port: 25565
+      version: "1.19.2"
+    
+    skin:
+      enabled: false
+    
+    voice:
+      enabled: true
+      engine: "pyttsx3"
+      voice_id: 2
+      rate: 140
+      volume: 1.0
+      output_device: "virtual_cable"
+    
+    streaming:
+      enabled: true
+      platforms:
+        - name: "youtube"
+          priority: 1
+          channel: "streambot3_yt"
+          stream_key: "${YOUTUBE_STREAM_KEY_3}"
+          fallback: true
+        - name: "twitch"
+          priority: 2
+          channel: "streambot3_twitch"
+          stream_key: "${TWITCH_STREAM_KEY_3}"
+          fallback: true
+
+# Global Settings
+global:
+  # Retry settings for bot connections
+  connection:
+    max_retries: 3
+    retry_delay: 5  # seconds
+    timeout: 30  # seconds
+  
+  # Platform capacity management
+  platform_limits:
+    twitch: 2
+    youtube: 5
+    tiktok: 1
+  
+  # Logging configuration
+  logging:
+    level: "INFO"  # Options: DEBUG, INFO, WARNING, ERROR
+    file: "logs/aismp_launcher.log"
+    console: true
+  
+  # Dashboard settings
+  dashboard:
+    enabled: true
+    refresh_rate: 2  # seconds
+    show_stream_status: true
+    show_connection_stats: true
