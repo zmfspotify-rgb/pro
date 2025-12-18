@@ -172,7 +172,7 @@ function cleanupFrames(screenshotDir) {
       }
     }
     
-    fs.rmdirSync(screenshotDir);
+    fs.rmSync(screenshotDir, { recursive: true, force: true });
     console.log('[FFmpeg-Helpers] Screenshot frames cleaned up');
   } catch (error) {
     console.error('[FFmpeg-Helpers] Error cleaning up frames:', error.message);

@@ -74,26 +74,14 @@ function setupEventHandlers(bot, config) {
   
   bot.on('kicked', (reason) => {
     console.log(`[Bot-Core] ${config.username} was kicked: ${reason}`);
-    if (config.behaviors && config.behaviors.autoReconnect) {
-      setTimeout(() => {
-        console.log(`[Bot-Core] Attempting to reconnect ${config.username}...`);
-        createBot(config).catch(err => {
-          console.error(`[Bot-Core] Reconnection failed for ${config.username}:`, err.message);
-        });
-      }, 5000);
-    }
+    // Note: Auto-reconnect should be handled at the application level
+    // to properly update bot registry and state
   });
   
   bot.on('end', () => {
     console.log(`[Bot-Core] ${config.username} disconnected`);
-    if (config.behaviors && config.behaviors.autoReconnect) {
-      setTimeout(() => {
-        console.log(`[Bot-Core] Attempting to reconnect ${config.username}...`);
-        createBot(config).catch(err => {
-          console.error(`[Bot-Core] Reconnection failed for ${config.username}:`, err.message);
-        });
-      }, 5000);
-    }
+    // Note: Auto-reconnect should be handled at the application level
+    // to properly update bot registry and state
   });
   
   bot.on('health', () => {

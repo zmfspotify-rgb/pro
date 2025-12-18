@@ -26,7 +26,7 @@ class PuppeteerTiler {
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
         '--disable-gpu',
-        `--window-size=${this.config.resolution.width},${this.config.resolution.height}`
+        '--window-size=' + this.config.resolution.width + ',' + this.config.resolution.height
       ]
     });
     

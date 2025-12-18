@@ -56,8 +56,10 @@ async function generateSpeech(text, options = {}) {
  * Generate speech for bot narration
  */
 async function narrateAction(botName, action, outputDir) {
+  // Sanitize botName to prevent path traversal
+  const sanitizedBotName = botName.replace(/[^a-zA-Z0-9_-]/g, '_');
   const text = `${botName} is now ${action}`;
-  const outputPath = path.join(outputDir, `${botName}_${action.replace(/\s+/g, '_')}.mp3`);
+  const outputPath = path.join(outputDir, `${sanitizedBotName}_${action.replace(/\s+/g, '_')}.mp3`);
   
   return await generateSpeech(text, { outputPath });
 }
