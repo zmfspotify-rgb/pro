@@ -6,6 +6,7 @@ class App {
     this.bots = [];
     this.schedule = [];
     this.logs = [];
+    this.confirmCallback = null;
     this.init();
   }
 
@@ -17,6 +18,7 @@ class App {
     this.setupLogs();
     this.setupSettings();
     this.setupEventListeners();
+    this.setupNotifications();
     
     await this.loadData();
     this.updateDashboard();
@@ -152,6 +154,76 @@ class App {
     });
   }
 
+  setupNotifications() {
+    // Setup confirmation modal
+    const confirmModal = document.getElementById('confirm-modal');
+    const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
+    const confirmOkBtn = document.getElementById('confirm-ok-btn');
+    const confirmCloseBtns = confirmModal.querySelectorAll('.close-btn');
+
+    confirmCancelBtn.addEventListener('click', () => {
+      confirmModal.classList.remove('show');
+      if (this.confirmCallback) {
+        this.confirmCallback(false);
+        this.confirmCallback = null;
+      }
+    });
+
+    confirmOkBtn.addEventListener('click', () => {
+      confirmModal.classList.remove('show');
+      if (this.confirmCallback) {
+        this.confirmCallback(true);
+        this.confirmCallback = null;
+      }
+    });
+
+    confirmCloseBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        confirmModal.classList.remove('show');
+        if (this.confirmCallback) {
+          this.confirmCallback(false);
+          this.confirmCallback = null;
+        }
+      });
+    });
+  }
+
+  showToast(message, type = 'info') {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    
+    const icons = {
+      success: '✅',
+      error: '❌',
+      info: 'ℹ️',
+      warning: '⚠️'
+    };
+    
+    toast.innerHTML = `
+      <div class="toast-icon">${icons[type]}</div>
+      <div class="toast-message">${this.escapeHtml(message)}</div>
+    `;
+    
+    container.appendChild(toast);
+    
+    // Auto remove after 4 seconds
+    setTimeout(() => {
+      toast.classList.add('removing');
+      setTimeout(() => {
+        container.removeChild(toast);
+      }, 300);
+    }, 4000);
+  }
+
+  showConfirm(title, message, callback) {
+    const confirmModal = document.getElementById('confirm-modal');
+    document.getElementById('confirm-title').textContent = title;
+    document.getElementById('confirm-message').textContent = message;
+    this.confirmCallback = callback;
+    confirmModal.classList.add('show');
+  }
+
   setupEventListeners() {
     // Listen for bot status changes
     ipcRenderer.on('bot-status-changed', (event, data) => {
@@ -201,7 +273,7 @@ class App {
     const autoReconnect = document.getElementById('bot-auto-reconnect').checked;
 
     if (!name || !username || !server) {
-      alert('Please fill in all required fields');
+      this.showToast('Please fill in all required fields', 'error');
       return;
     }
 
@@ -221,8 +293,9 @@ class App {
       this.updateDashboard();
       document.getElementById('add-bot-modal').classList.remove('show');
       this.clearBotForm();
+      this.showToast('Bot added successfully!', 'success');
     } else {
-      alert('Failed to add bot: ' + result.error);
+      this.showToast('Failed to add bot: ' + result.error, 'error');
     }
   }
 
@@ -246,7 +319,7 @@ class App {
       .map(cb => parseInt(cb.value));
 
     if (!botId || days.length === 0) {
-      alert('Please select a bot and at least one day');
+      this.showToast('Please select a bot and at least one day', 'error');
       return;
     }
 
@@ -266,6 +339,7 @@ class App {
     this.renderSchedule();
     document.getElementById('add-schedule-modal').classList.remove('show');
     this.clearScheduleForm();
+    this.showToast('Schedule created successfully!', 'success');
   }
 
   clearScheduleForm() {
@@ -368,12 +442,22 @@ class App {
     grid.querySelectorAll('.remove-btn').forEach(btn => {
       btn.addEventListener('click', async () => {
         const botId = btn.getAttribute('data-bot-id');
-        if (confirm('Are you sure you want to remove this bot?')) {
-          await ipcRenderer.invoke('remove-bot', botId);
-          await this.loadData();
-          this.renderBots();
-          this.updateDashboard();
-        }
+        const bot = this.bots.find(b => b.id === botId);
+        const botName = bot ? bot.name : 'this bot';
+        
+        this.showConfirm(
+          'Remove Bot',
+          `Are you sure you want to remove ${botName}?`,
+          async (confirmed) => {
+            if (confirmed) {
+              await ipcRenderer.invoke('remove-bot', botId);
+              await this.loadData();
+              this.renderBots();
+              this.updateDashboard();
+              this.showToast('Bot removed successfully', 'success');
+            }
+          }
+        );
       });
     });
 

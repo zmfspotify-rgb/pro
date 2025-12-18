@@ -180,6 +180,13 @@ class BotManager extends EventEmitter {
       bot.instance.on('end', (reason) => {
         this.addLog(botId, 'warn', `Disconnected: ${reason || 'Unknown reason'}`);
         this.updateBotStatus(botId, 'offline');
+        
+        // Clear anti-AFK interval
+        if (bot.afkInterval) {
+          clearInterval(bot.afkInterval);
+          bot.afkInterval = null;
+        }
+        
         bot.instance = null;
         
         // Auto-reconnect if enabled
@@ -195,7 +202,7 @@ class BotManager extends EventEmitter {
       });
       
       // Simple anti-AFK behavior
-      setInterval(() => {
+      bot.afkInterval = setInterval(() => {
         if (bot.instance && bot.instance.entity) {
           // Look around randomly
           bot.instance.look(Math.random() * Math.PI * 2, Math.random() * Math.PI - Math.PI / 2);
@@ -218,6 +225,12 @@ class BotManager extends EventEmitter {
     
     if (!bot.instance) {
       return { success: false, error: 'Bot not running' };
+    }
+    
+    // Clear anti-AFK interval
+    if (bot.afkInterval) {
+      clearInterval(bot.afkInterval);
+      bot.afkInterval = null;
     }
     
     bot.instance.quit();
