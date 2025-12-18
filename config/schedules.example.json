@@ -1,0 +1,48 @@
+{
+  "bot1": {
+    "streaming": [
+      {
+        "cronExpression": "0 14 * * *",
+        "duration": 120
+      },
+      {
+        "cronExpression": "0 20 * * *",
+        "duration": 180
+      }
+    ],
+    "activities": [
+      {
+        "cronExpression": "0 10 * * *",
+        "task": {
+          "type": "mine",
+          "blockType": "stone",
+          "count": 64
+        }
+      },
+      {
+        "cronExpression": "0 12 * * *",
+        "task": {
+          "type": "explore",
+          "radius": 100
+        }
+      }
+    ]
+  },
+  "bot2": {
+    "streaming": [
+      {
+        "cronExpression": "0 16 * * *",
+        "duration": 90
+      }
+    ],
+    "activities": [
+      {
+        "cronExpression": "0 11 * * *",
+        "task": {
+          "type": "farm",
+          "cropType": "wheat"
+        }
+      }
+    ]
+  }
+}
