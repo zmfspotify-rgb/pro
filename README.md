@@ -1,51 +1,66 @@
-# Minecraft AI Bot Pipeline with Twitch Streaming
+# AvatarOS - AI-Powered Minecraft Bot System
 
-A multi-bot Minecraft content pipeline project powered by Node.js featuring AI players that can stream to Twitch with realistic voices, chat interaction, plugin/mod support, and an in-launcher configuration editor.
+An advanced AI-powered Minecraft bot system with memory, learning capabilities, and dynamic plugin/mod support. Upload any plugin or mod and watch the AI bots automatically figure out how to use them!
 
-## 🌟 Features
+## 🌟 Key Features
 
-- **🤖 Unlimited AI Players** - Add as many AI-controlled Minecraft bots as you need
+### 🤖 **AI Memory & Learning**
+- **Short-term & Long-term Memory** - Bots remember experiences and learn from them
+- **Automated Thinking** - AI decides actions based on past success rates
+- **Behavior Learning** - Automatically improves strategies over time
+- **Persistent Memory** - Learning survives across sessions
+
+### 📤 **Dynamic Plugin/Mod System**
+- **Upload Any Plugin/Mod** - Just drop files in `/plugins` or `/mods` folders
+- **Auto-Discovery** - AI automatically finds and analyzes uploaded files
+- **Self-Learning** - Bots figure out commands and features on their own
+- **Memory Integration** - Remembers what works and what doesn't
+
+### 🎮 **Core Features**
+- **Unlimited AI Players** - Add as many AI-controlled Minecraft bots as you need
 - **📺 Twitch Streaming** - Stream bot POV to Twitch without OBS
-- **🎙️ Realistic Voices** - 16 voice models (8 female, 8 male) for natural TTS
+- **🎙️ 16 Realistic Voices** - 8 female and 8 male voice models for natural TTS
 - **💬 Chat Interaction** - AI bots respond to Twitch chat and comment on gameplay
 - **📅 Smart Scheduling** - Automatic streaming schedules prevent overlaps
-- **🎮 Mineflayer Integration** - Advanced bot AI with pathfinding and game awareness
 - **🔄 Auto-Reconnect** - Bots automatically reconnect if disconnected
-- **⚙️ In-Launcher Config Editor** - Interactive GUI to edit settings without touching config files
-- **🔌 Plugin Support** - Lifesteal SMP plugin with heart tracking
-- **🎛️ Mod Support** - Simple Voice Chat mod with private channels, passwords, and whisper commands
+- **⚙️ In-Launcher Config Editor** - Interactive GUI to edit all settings
+
+### 🔌 **Built-in Support**
+- **Lifesteal SMP Plugin** - Heart-based PvP mechanics
+- **Simple Voice Chat Mod** - Voice communication with private channels
+- **And ANY plugin/mod you upload!**
 
 ## 🚀 Quick Start
 
-### Building the .exe Launcher (Required)
+### Building AvatarOS.exe
 
-**The launcher.exe is not included in the repository due to its size (426MB). You must build it:**
+**The AvatarOS.exe is not included in the repository due to its size (426MB+). You must build it:**
 
 ```bash
 # Install dependencies
 npm install
 
-# Build the .exe launcher for Windows
+# Build AvatarOS.exe for Windows
 npm run build
 ```
 
-The `launcher.exe` will be created in the `dist/` directory.
+The `AvatarOS.exe` will be created in the `dist/` directory.
 
-**Alternative:** Download pre-built launcher from the [Releases](../../releases) page when available.
+**Alternative:** Download pre-built AvatarOS from the [Releases](../../releases) page when available.
 
-### Running the Application
+### Running AvatarOS
 
 **Option 1: Using the .exe launcher (Windows)**
-1. Build the launcher with `npm run build` (see above)
-2. Double-click `dist/launcher.exe`
-3. To open config editor: `launcher.exe --config`
+1. Build AvatarOS with `npm run build` (see above)
+2. Double-click `dist/AvatarOS.exe`
+3. To open config editor: `AvatarOS.exe --config`
 
 **Option 2: Run from source**
 ```bash
 # Install dependencies
 npm install
 
-# Run the application
+# Run AvatarOS
 npm start
 
 # Or open configuration editor
@@ -54,15 +69,58 @@ npm run config
 npm start -- --config
 ```
 
+## 📤 Uploading Plugins & Mods
+
+### Upload Plugins
+1. Place your `.jar` or `.js` plugin files in the `/plugins` directory
+2. AvatarOS automatically discovers them on startup
+3. AI bots analyze and learn how to use them
+4. Knowledge is saved in memory for future use
+
+### Upload Mods
+1. Place your `.jar` or `.js` mod files in the `/mods` directory
+2. AvatarOS automatically discovers them on startup
+3. AI bots analyze and learn how to use them
+4. Knowledge is saved in memory for future use
+
+### Supported Formats
+- **Plugins**: Bukkit, Spigot, Paper plugins (.jar)
+- **Mods**: Forge, Fabric, Quilt mods (.jar)
+- **Custom**: JavaScript implementations (.js)
+
+## 🧠 AI Memory System
+
+Each AI player has their own memory file that stores:
+
+- **Short-term Memory**: Last 100 events
+- **Long-term Memory**: Last 1000 important experiences
+- **Learned Behaviors**: Actions and success rates
+- **Plugin Knowledge**: Discovered plugins and how to use them
+- **Mod Knowledge**: Discovered mods and how to use them
+- **Player Interactions**: Relationship history
+
+### How AI Learning Works
+
+1. **Discover**: AI finds uploaded plugin/mod
+2. **Analyze**: Extracts commands and features
+3. **Experiment**: Tests discovered functionality
+4. **Remember**: Stores results in memory
+5. **Learn**: Adjusts behavior based on success
+6. **Improve**: Higher success rate actions preferred
+
+Memory files are stored in `/memory/<player_id>.json`
+
 ## ⚙️ In-Launcher Configuration Editor
 
-Edit all settings inside the launcher with an interactive GUI!
+Edit all settings inside AvatarOS with an interactive GUI!
 
 ```bash
 # Open config editor
 npm run config
 # OR
 npm start -- --config
+# OR
+AvatarOS.exe --config
 ```
 
 **Features:**
@@ -85,12 +143,35 @@ npm start -- --config
 
 ## 📦 Build Commands
 
-- `npm run build` - Build Windows .exe launcher
+- `npm run build` - Build AvatarOS.exe for Windows
 - `npm run build:all` - Build launchers for Windows, Linux, and macOS
-- `npm start` - Run the application directly with Node.js
+- `npm start` - Run AvatarOS directly with Node.js
 - `npm run config` - Open the interactive configuration editor
 
-## 🔌 Plugins
+## 📝 License
+
+MIT
+
+---
+
+## 🎯 What Makes AvatarOS Special?
+
+### Traditional Minecraft Bots
+- Need manual configuration for each plugin/mod
+- Can't learn from experience
+- Require code changes for new features
+- No memory of past actions
+
+### AvatarOS
+- ✅ Upload any plugin/mod - AI figures it out
+- ✅ Learns from every interaction
+- ✅ Remembers what works
+- ✅ Improves over time
+- ✅ No code changes needed for new plugins/mods
+
+**Upload a plugin → AI discovers it → AI learns it → AI uses it → AI remembers it**
+
+That's the AvatarOS difference!
 
 ### Lifesteal SMP Plugin
 
