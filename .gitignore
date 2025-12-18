@@ -6,6 +6,8 @@ yarn.lock
 # Build output
 dist/
 *.exe
+# Exception: Include the launcher executable
+!dist/launcher.exe
 
 # Logs
 logs/
