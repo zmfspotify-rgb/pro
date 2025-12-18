@@ -1,0 +1,179 @@
+
+> minecraft-bot-pipeline@1.0.0 demo
+> node demo.js
+
+╔════════════════════════════════════════════════════════════╗
+║     Minecraft Bot Pipeline - Full Feature Demo            ║
+╚════════════════════════════════════════════════════════════╝
+
+📡 Configuring Server Connection...
+✓ Server config updated: { host: 'localhost', port: 25565, version: '1.20.1' }
+   ✓ Server configured
+
+🎤 Available Voice Presets (16 total):
+
+Male Voices (m1-m8):
+   m1: Deep Commander - Deep, commanding voice with authority
+   m2: Friendly Guide - Warm, approachable male voice
+   m3: Young Explorer - Energetic, youthful male voice
+   m4: Wise Mentor - Mature, experienced voice with wisdom
+   m5: Action Hero - Bold, confident action-oriented voice
+   m6: Tech Expert - Precise, technical male voice
+   m7: Storyteller - Expressive, dramatic narrative voice
+   m8: Casual Buddy - Laid-back, friendly companion voice
+
+Female Voices (f1-f8):
+   f1: Elegant Leader - Refined, authoritative female voice
+   f2: Cheerful Friend - Bright, cheerful female voice
+   f3: Mysterious Sage - Enigmatic, wise female voice
+   f4: Adventurous Spirit - Bold, adventurous female voice
+   f5: Gentle Healer - Soothing, caring female voice
+   f6: Tactical Strategist - Sharp, strategic female voice
+   f7: Energetic Performer - Dynamic, high-energy female voice
+   f8: Calm Narrator - Peaceful, narrative female voice
+
+🧠 Available AI Personalities (8 types):
+
+   explorer: Explorer
+      Loves to explore and discover new places
+      Behaviors: mining, exploring, collecting
+
+   builder: Builder
+      Focused on construction and creating structures
+      Behaviors: building, crafting, organizing
+
+   warrior: Warrior
+      Combat-oriented, protects the group
+      Behaviors: fighting, hunting, protecting
+
+   farmer: Farmer
+      Peaceful farmer who tends to crops and animals
+      Behaviors: farming, breeding, gardening
+
+   trader: Trader
+      Social trader who loves to interact and exchange
+      Behaviors: trading, collecting, bartering
+
+   redstoner: Redstoner
+      Technical expert in redstone and automation
+      Behaviors: redstone, engineering, automation
+
+   adventurer: Adventurer
+      Seeks adventure and treasure
+      Behaviors: questing, exploring, looting
+
+   guardian: Guardian
+      Vigilant protector of the base
+      Behaviors: patrolling, protecting, watching
+
+═══════════════════════════════════════════════════════════
+  Feature Demonstration
+═══════════════════════════════════════════════════════════
+
+✨ Feature 1: Bot Creation System
+   Creating multiple bots with different personalities...
+
+   Bot 1: Explorer with Young Explorer voice (m3)
+   - Personality: Explorer (loves discovering new places)
+   - Voice: Young Explorer (energetic, youthful)
+   - Schedule: Peak hours (12-4 PM, 6-11 PM)
+
+   Bot 2: Builder with Elegant Leader voice (f1)
+   - Personality: Builder (construction focused)
+   - Voice: Elegant Leader (refined, authoritative)
+   - Schedule: 24/7 mode
+
+   Bot 3: Farmer with Gentle Healer voice (f5)
+   - Personality: Farmer (peaceful, farming focused)
+   - Voice: Gentle Healer (soothing, caring)
+   - Schedule: Weekend schedule
+
+✨ Feature 2: 24/7 AI Player
+   Creating AI player to keep Aternos server alive...
+   - Username: AI_ServerKeeper
+   - Personality: Guardian (vigilant protector)
+   - Schedule: 24/7 (always online)
+   - Anti-AFK: Periodic activity every 30 seconds
+   ✓ Prevents Aternos server from sleeping!
+
+✨ Feature 3: AI Memory & Personalities
+   Each bot has:
+   - Short-term memory: Last 50 events
+   - Long-term memory: Players, locations, achievements
+   - Relationship tracking: Builds friendships over time
+   - Context-aware responses: Based on personality & mood
+
+✨ Feature 4: Streaming Schedule System
+   Bots can hop on/off based on schedule:
+   - 24/7 mode: Always online
+   - Peak hours: 12-4 PM, 6-11 PM daily
+   - Weekday: Monday-Friday, 9 AM - 5 PM
+   - Weekend: Saturday-Sunday, 10 AM - 10 PM
+   - Custom: Define your own time ranges
+   ✓ Automatic schedule checking every minute
+
+✨ Feature 5: Voice Model Presets
+   16 unique voice presets available:
+   - 8 Male voices with varied characteristics
+   - 8 Female voices with varied characteristics
+   - Each has unique pitch, speed, and tone
+   ✓ Perfect when you can't find a good voice model!
+
+═══════════════════════════════════════════════════════════
+  iOS App Features
+═══════════════════════════════════════════════════════════
+
+📱 iOS App for Signulous Installation:
+   - Bot creation interface
+   - Voice preset selector (all 16 presets)
+   - 24/7 player controls
+   - Server configuration
+   - Real-time status monitoring
+
+   Installation:
+   1. Build the .ipa file (npm run build:ios)
+   2. Transfer to iOS device
+   3. Install via Signulous app
+   4. Launch and configure!
+
+   See build/IPA_INSTALLATION_GUIDE.md for details
+
+═══════════════════════════════════════════════════════════
+  Status Summary
+═══════════════════════════════════════════════════════════
+
+✅ Bot Creation Functionality: WORKING
+✅ 16 Voice Presets (8M/8F): IMPLEMENTED
+✅ 8 AI Personalities: IMPLEMENTED
+✅ Memory System: WORKING
+✅ Streaming Schedule: WORKING
+✅ 24/7 AI Player: WORKING
+✅ iOS App Structure: READY
+✅ .ipa Build Config: READY
+
+═══════════════════════════════════════════════════════════
+  Quick Start Commands
+═══════════════════════════════════════════════════════════
+
+# Install dependencies
+npm install
+
+# Start the bot system
+npm start
+
+# Build iOS app
+npm run build:ios
+
+# Run with custom server
+MC_HOST=yourserver.aternos.me npm start
+
+# Auto-start demo bots
+AUTO_START=true npm start
+
+═══════════════════════════════════════════════════════════
+  All Features Complete! 🎉
+═══════════════════════════════════════════════════════════
+
+The bot pipeline is ready to use!
+See DOCUMENTATION.md for detailed usage instructions.
+
