@@ -88,24 +88,53 @@ Once the build completes, you'll find:
 
 ## 🆘 Troubleshooting
 
+### Script opens and closes immediately (Windows)
+**This means Node.js is not installed or not in your PATH**
+
+**Solution:**
+1. Install Node.js from https://nodejs.org/ (download the LTS version)
+2. During installation, make sure "Add to PATH" is checked
+3. Restart your computer (important!)
+4. Open Command Prompt and test: `node --version`
+5. If it shows a version number, Node.js is installed correctly
+6. Run `build-avatarOS.bat` again
+
+**Alternative method:**
+1. Right-click `build-avatarOS.bat`
+2. Select "Run as Administrator"
+3. If you see an error about Node.js, follow steps above
+
 ### "Node.js is not installed"
 - Install Node.js from https://nodejs.org/
-- Restart your terminal/command prompt
+- Download the **LTS (Long Term Support)** version
+- Make sure "Add to PATH" is checked during installation
+- **Restart your computer** after installation
+- Test with: `node --version` and `npm --version`
 - Try the build script again
 
 ### "npm install failed"
 - Make sure you have internet connection
+- Try running as Administrator (Windows)
 - Try running `npm cache clean --force`
+- Delete `node_modules` folder if it exists
 - Run the build script again
 
 ### "Build failed"
 - Delete the `node_modules` folder
-- Delete `package-lock.json`
+- Delete `package-lock.json` file
+- Make sure you have enough disk space (~500MB free)
 - Run the build script again
 
 ### Build is slow
 - First build takes 2-5 minutes (downloads dependencies)
 - Subsequent builds are faster (~1-2 minutes)
+- This is normal - be patient!
+
+### Permission denied (Linux/Mac)
+```bash
+chmod +x build-avatarOS.sh
+./build-avatarOS.sh
+```
 
 ## 📖 Documentation
 
