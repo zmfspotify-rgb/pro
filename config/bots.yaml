@@ -1,0 +1,120 @@
+# AISMP Bot Configuration
+# Defines bot roles, platform preferences, and scheduling
+
+bots:
+  - id: bot_001
+    name: "StreamBot Alpha"
+    role: solo
+    platforms:
+      - twitch
+      - youtube
+    priority: 1
+    capabilities:
+      - gaming
+      - chat_moderation
+    backup_bots:
+      - bot_002
+    schedule:
+      timezone: "UTC"
+      active_hours:
+        start: "00:00"
+        end: "23:59"
+      days:
+        - sunday
+        - monday
+        - tuesday
+        - wednesday
+        - thursday
+        - friday
+        - saturday
+
+  - id: bot_002
+    name: "StreamBot Beta"
+    role: collab
+    platforms:
+      - youtube
+      - discord
+    priority: 2
+    capabilities:
+      - gaming
+      - music
+      - chat_moderation
+    backup_bots:
+      - bot_003
+    schedule:
+      timezone: "UTC"
+      active_hours:
+        start: "00:00"
+        end: "23:59"
+      days:
+        - sunday
+        - monday
+        - tuesday
+        - wednesday
+        - thursday
+        - friday
+        - saturday
+
+  - id: bot_003
+    name: "StreamBot Gamma"
+    role: solo
+    platforms:
+      - twitch
+      - kick
+    priority: 3
+    capabilities:
+      - chat_moderation
+      - alerts
+    backup_bots: []
+    schedule:
+      timezone: "UTC"
+      active_hours:
+        start: "00:00"
+        end: "23:59"
+      days:
+        - sunday
+        - monday
+        - tuesday
+        - wednesday
+        - thursday
+        - friday
+        - saturday
+
+channels:
+  - id: channel_001
+    name: "Main Gaming Channel"
+    platform: twitch
+    preferred_bots:
+      - bot_001
+      - bot_003
+    fallback_bots:
+      - bot_002
+    requires_capabilities:
+      - gaming
+      - chat_moderation
+
+  - id: channel_002
+    name: "Collab Stream Channel"
+    platform: youtube
+    preferred_bots:
+      - bot_002
+    fallback_bots:
+      - bot_001
+    requires_capabilities:
+      - gaming
+      - music
+
+  - id: channel_003
+    name: "Community Discord"
+    platform: discord
+    preferred_bots:
+      - bot_002
+    fallback_bots: []
+    requires_capabilities:
+      - chat_moderation
+
+defaults:
+  fallback_strategy: "round_robin"
+  max_retries: 3
+  assignment_timeout: 30
+  health_check_interval: 60
